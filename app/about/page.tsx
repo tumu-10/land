@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import "@/styles/about.scss";
 
@@ -50,7 +50,7 @@ const advantages = [
   {
     icon: "💡",
     title: "Tech Leadership",
-    description: "PropTech pioneers since 2015"
+    description: "PropTech pioneers since 2022"
   }
 ];
 
@@ -102,24 +102,34 @@ const careerPerks = [
 ];
 
 // Section Wrapper Component
-const SectionWrapper = ({ children, id, bgType }) => (
-  <section className={`section-wrapper ${bgType ?? ""}`} id={id}>
-    {bgType === 'parallax' && <div className="parallax-overlay" />}
-    {bgType === 'wave' && (
-      <div className="section-wave">
-        <svg viewBox="0 0 1440 120">
-          <path d="M0,64L120,80C240,96,480,128,720,128C960,128,1200,96,1320,80L1440,64L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z" />
-        </svg>
-      </div>
-    )}
-    <div className="section-content">{children}</div>
-  </section>
-);
+const SectionWrapper = ({ children, id, bgType }) => {
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 500], [0, 100]);
+
+  return (
+    <section className={`section-wrapper ${bgType ?? ""}`} id={id}>
+      {bgType === 'parallax' && (
+        <motion.div 
+          className="parallax-overlay"
+          style={{ y }}
+        />
+      )}
+      {bgType === 'wave' && (
+        <div className="section-wave">
+          <svg viewBox="0 0 1440 120">
+            <path d="M0,64L120,80C240,96,480,128,720,128C960,128,1200,96,1320,80L1440,64L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z" />
+          </svg>
+        </div>
+      )}
+      <div className="section-content">{children}</div>
+    </section>
+  );
+};
 
 const AboutPage = () => {
   return (
     <div className="about-container">
-      {/* Hero Section */}
+      {/* Hero Section (keep existing hero markup) */}
       <section className="hero-section">
         <div className="hero-particles">
           {[...Array(50)].map((_, i) => (
@@ -182,15 +192,14 @@ const AboutPage = () => {
   />
 </div>
       </section>
-
       {/* Who We Are Section */}
       <SectionWrapper id="who-we-are">
         <div className="content-grid">
           <motion.div 
             className="content-text"
-            initial={{ x: -100, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
           >
             <h2>Who We Are</h2>
             <p>
@@ -204,6 +213,8 @@ const AboutPage = () => {
                   key={`value-${index}`}
                   className="value"
                   whileHover={{ scale: 1.05 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                 >
                   <div className="value-icon">{value.icon}</div>
                   <h4>{value.title}</h4>
@@ -212,21 +223,34 @@ const AboutPage = () => {
               ))}
             </div>
           </motion.div>
+          
           <motion.div 
             className="content-image"
-            initial={{ x: 100, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
           >
-            <Image 
-              src="/gallery3.png" 
-              width={400} 
-              height={400} 
-              alt="Who We Are" 
-              className="floating-image"
-              priority
-            />
-            <div className="image-backdrop" />
+            <motion.div 
+              className="image-container"
+              animate={{
+                y: [0, -15, 0],
+                rotate: [0, -2, 2, 0]
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <Image 
+                src="/gallery3.png" 
+                width={600} 
+                height={600} 
+                alt="Who We Are" 
+                priority
+              />
+            </motion.div>
+            <div className="animated-backdrop" />
           </motion.div>
         </div>
       </SectionWrapper>
