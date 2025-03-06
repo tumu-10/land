@@ -45,7 +45,9 @@
                 text-align: left;
             }
             .linksHeading {
-                color: #fff;
+                background: linear-gradient(to right, #2a2a72, #ff8c00);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
                 font-size: 1.1rem;
                 margin-bottom: 1rem;
                 text-transform: uppercase;
@@ -79,7 +81,9 @@
                 text-align: left;
             }
             .socialHeading {
-                color: #fff;
+                background: linear-gradient(to right, #2a2a72, #ff8c00);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
                 font-size: 1.1rem;
                 margin-bottom: 1.5rem;
                 text-transform: uppercase;

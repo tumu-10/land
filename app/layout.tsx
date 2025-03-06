@@ -3,7 +3,7 @@ import Header from '@/components/Header'; // Navbar component
 import Footer from '@/components/Footer'; // Footer component
 
 export const metadata = {
-  title: 'Landville Ventures',
+  title: 'LandVille Ventures',
   description: 'Your gateway to real estate and property solutions',
 };
 

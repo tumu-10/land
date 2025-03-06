@@ -141,7 +141,7 @@ const ContactPage = () => {
 
           <div className={styles.links}>
             <a href="mailto:Landvilleventures@gmail.com">
-              <FiMail className={styles.icon} /> Landvilleventures@gmail.com
+              <FiMail className={styles.icon} /> LandVilleventures@gmail.com
             </a>
             <a
               href="https://www.google.com/maps/place/Kyanja+Mall/@0.3957122,32.5951815,15.04z/data=!4m6!3m5!1s0x177db12d98a508d3:0xe23ffa68c188c230!8m2!3d0.3953297!4d32.5933825!16s%2Fg%2F11l1_rvjwq?entry=ttu&g_ep=EgoyMDI1MDIyNC4wIKXMDSoASAFQAw%3D%3D"

@@ -4,6 +4,31 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import "@/styles/about.scss";
 
+// Type definitions
+interface SectionWrapperProps {
+  children: React.ReactNode;
+  id: string;
+  bgType?: 'parallax' | 'wave';
+}
+
+interface ValueItem {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface PillarItem {
+  icon: string;
+  title: string;
+  description?: string;
+}
+
+interface OrbitItem {
+  items: Array<{
+    icon: string;
+    label: string;
+  }>;
+}
 // Data Structures
 const coreValues = [
   {
@@ -102,7 +127,8 @@ const careerPerks = [
 ];
 
 // Section Wrapper Component
-const SectionWrapper = ({ children, id, bgType }) => {
+
+const SectionWrapper = ({ children, id, bgType }: SectionWrapperProps) => {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 100]);
 
@@ -127,6 +153,22 @@ const SectionWrapper = ({ children, id, bgType }) => {
 };
 
 const AboutPage = () => {
+
+   // Scrolling handler with proper type safety
+   const handleScroll = () => {
+    const sections = document.querySelectorAll<HTMLElement>('section');
+    const currentScroll = window.scrollY + (window.innerHeight * 0.5);
+    
+    for (const section of sections) {
+      if (section.offsetTop > currentScroll) {
+        section.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start' 
+        });
+        break;
+      }
+    }
+  };
   return (
     <div className="about-container">
       {/* Hero Section (keep existing hero markup) */}
@@ -203,7 +245,7 @@ const AboutPage = () => {
           >
             <h2>Who We Are</h2>
             <p>
-              At Landville Ventures, we provide cutting-edge solutions in real estate, 
+              At LandVille Ventures, we provide cutting-edge solutions in real estate, 
               equipment importation, and software development. Our commitment to innovation 
               ensures we deliver exceptional value to our clients.
             </p>
