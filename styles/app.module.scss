@@ -1,3 +1,4 @@
+@use "sass:color";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 $primary-color: #007bff;
 $secondary-color: #6c757d;
@@ -103,7 +104,7 @@ $light-color: #f8f9fa;
                 display: flex;
                 align-items: center;
                 gap: 10px;
-                background: linear-gradient(45deg, $dark-color 30%, lighten($dark-color, 10%));
+                background: linear-gradient(45deg, $dark-color 30%, color.adjust($dark-color, $lightness: 10%));
                 color: #ff8c00;
                 padding: 12px 20px;
                 font-size: 1rem;
